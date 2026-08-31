@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>caxt — Open Source Paint App</title>
+
+    <link rel="icon" type="image/png" href="https://i.ibb.co/sdXhjzf3/logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background:
+                radial-gradient(circle at 50% -20%, rgba(255,255,255,.08), transparent 35%),
+                #090909;
+            color: #e5e5e5;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+                BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        ::selection {
+            background: #fff;
+            color: #000;
+        }
+
+        .glass {
+            background: rgba(18, 18, 18, .72);
+            border: 1px solid rgba(255,255,255,.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+
+        .glow {
+            box-shadow:
+                0 0 0 1px rgba(255,255,255,.04),
+                0 20px 70px rgba(0,0,0,.45);
+        }
+
+        .download-btn,
+        .github-btn {
+            transition: all .2s ease;
+        }
+
+        .download-btn:hover,
+        .github-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .download-btn:hover {
+            box-shadow: 0 12px 35px rgba(255,255,255,.12);
+        }
+
+        .github-btn:hover {
+            border-color: rgba(255,255,255,.25);
+            background: rgba(255,255,255,.06);
+        }
+
+        .file-card,
+        .feature {
+            transition: all .2s ease;
+        }
+
+        .file-card:hover,
+        .feature:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,.16);
+            background: rgba(255,255,255,.035);
+        }
+
+        .file-download {
+            transition: all .2s ease;
+        }
+
+        .file-download:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .code {
+            background: #050505;
+            border: 1px solid #202020;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="fixed inset-0 pointer-events-none">
+        <div class="grid-bg absolute inset-0"></div>
+    </div>
+
+    <main class="relative max-w-6xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
+
+        <!-- NAVBAR -->
+        <nav class="glass rounded-2xl px-5 py-3.5 flex items-center justify-between mb-8 glow">
+
+            <div class="flex items-center gap-3">
+                <img
+                    src="https://i.ibb.co/sdXhjzf3/logo.png"
+                    alt="caxt"
+                    class="w-9 h-9 rounded-lg"
+                >
+
+                <span class="font-bold text-white tracking-tight">
+                    caxt
+                </span>
+
+                <span class="hidden sm:inline-flex text-[10px] uppercase tracking-widest
+                    text-zinc-500 border border-zinc-800 px-2 py-1 rounded-md">
+                    Open Source
+                </span>
+            </div>
+
+            <div class="hidden sm:flex items-center gap-6 text-sm text-zinc-500">
+                <a href="#features" class="hover:text-white transition">
+                    Features
+                </a>
+
+                <a href="#setup" class="hover:text-white transition">
+                    Setup
+                </a>
+
+                <a href="#files" class="hover:text-white transition">
+                    Source
+                </a>
+
+                <a
+                    href="https://github.com/tappy1231/caxt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-zinc-300 hover:text-white transition"
+                >
+                    GitHub
+                </a>
+            </div>
+
+        </nav>
+
+
+        <!-- HERO -->
+        <section class="glass rounded-3xl p-7 sm:p-12 glow overflow-hidden relative">
+
+            <div class="absolute -top-32 -right-32 w-80 h-80
+                bg-white/[.035] rounded-full blur-3xl">
+            </div>
+
+            <div class="relative flex flex-col lg:flex-row
+                lg:items-center lg:justify-between gap-10">
+
+                <div class="max-w-2xl">
+
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5
+                        rounded-full bg-white/[.04]
+                        border border-white/[.07]
+                        text-xs text-zinc-400 mb-6">
+
+                        <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+
+                        Open-source • Free to use
+                    </div>
+
+                    <!-- Title -->
+                    <h1 class="text-5xl sm:text-6xl font-black
+                        tracking-[-.04em] text-white">
+
+                        caxt<span class="text-zinc-600">.</span>
+
+                    </h1>
+
+                    <p class="mt-5 text-lg sm:text-xl text-zinc-400
+                        leading-relaxed max-w-xl">
+
+                        A lightweight, layered paint application built with
+                        <span class="text-zinc-200">Python</span>,
+                        <span class="text-zinc-200">Tkinter</span>, and
+                        <span class="text-zinc-200">Pillow</span>.
+
+                    </p>
+
+                    <p class="mt-3 text-sm text-zinc-500 max-w-xl">
+                        Fully open source. View the code, modify it,
+                        and build your own version of caxt.
+                    </p>
+
+
+                    <!-- BUTTONS -->
+                    <div class="flex flex-col sm:flex-row gap-3 mt-8">
+
+                        <!-- Download -->
+                        <a
+                            href="https://www.mediafire.com/file/w4ep2daw5t5wkki/main.zip/file"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="download-btn inline-flex items-center
+                                justify-center gap-2
+                                bg-white text-black
+                                font-semibold px-6 py-3.5 rounded-xl"
+                        >
+
+                            <svg
+                                class="w-5 h-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"
+                                />
+                            </svg>
+
+                            Download caxt
+
+                        </a>
+
+
+                        <!-- GitHub -->
+                        <a
+                            href="https://github.com/tappy1231/caxt"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="github-btn inline-flex items-center
+                                justify-center gap-2
+                                px-6 py-3.5 rounded-xl
+                                border border-zinc-700
+                                text-zinc-300"
+                        >
+
+                            <!-- GitHub Logo -->
+                            <svg
+                                class="w-5 h-5"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                            >
+                                <path d="M12 .5C5.73.5.75 5.48.75 11.75c0
+                                4.97 3.22 9.19 7.69 10.67.56.1.77-.24.77-.54
+                                0-.27-.01-1.16-.02-2.1-3.13.68-3.79-1.33-3.79-1.33
+                                -.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69
+                                1.13.08 1.72 1.16 1.72 1.16 1 .1.78 1.94
+                                1.78 1.4.17-.71.44-1.2.8-1.48-2.5-.28-5.13-1.25
+                                -5.13-5.55 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43
+                                .11-2.98 0 0 .95-.3 3.1 1.15a10.75 10.75 0 0 1
+                                5.64 0c2.15-1.46 3.1-1.15 3.1-1.15.61 1.55.23
+                                2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.31
+                                -2.63 5.26-5.14 5.54.45.39.85 1.13.85 2.28
+                                0 1.65-.02 2.98-.02 3.39 0 .3.2.65.78.54
+                                4.47-1.49 7.69-5.7 7.69-10.67C23.25 5.48
+                                18.27.5 12 .5z"/>
+                            </svg>
+
+                            View on GitHub
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGO -->
+                <div class="flex justify-center lg:justify-end">
+
+                    <div class="relative">
+
+                        <div class="absolute inset-0
+                            bg-white/10 blur-3xl rounded-full">
+                        </div>
+
+                        <img
+                            src="https://i.ibb.co/sdXhjzf3/logo.png"
+                            alt="caxt logo"
+                            class="relative w-40 h-40 sm:w-48 sm:h-48
+                                rounded-[2rem] shadow-2xl"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- STATS -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+
+            <div class="glass rounded-2xl p-5">
+                <p class="text-2xl font-bold text-white">10+</p>
+                <p class="text-xs text-zinc-500 mt-1">Source files</p>
+            </div>
+
+            <div class="glass rounded-2xl p-5">
+                <p class="text-2xl font-bold text-white">10</p>
+                <p class="text-xs text-zinc-500 mt-1">Paint tools</p>
+            </div>
+
+            <div class="glass rounded-2xl p-5">
+                <p class="text-2xl font-bold text-white">40</p>
+                <p class="text-xs text-zinc-500 mt-1">Undo steps</p>
+            </div>
+
+            <div class="glass rounded-2xl p-5">
+                <p class="text-2xl font-bold text-white">600%</p>
+                <p class="text-xs text-zinc-500 mt-1">Maximum zoom</p>
+            </div>
+
+        </section>
+
+
+        <!-- GITHUB FEATURE -->
+        <section class="mt-4">
+
+            <a
+                href="https://github.com/tappy1231/caxt"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="github-btn glass rounded-2xl p-5 sm:p-6
+                    flex flex-col sm:flex-row
+                    sm:items-center sm:justify-between gap-5
+                    block"
+            >
+
+                <div class="flex items-center gap-4">
+
+                    <div class="w-12 h-12 rounded-xl bg-white
+                        text-black flex items-center justify-center">
+
+                        <svg
+                            class="w-7 h-7"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                        >
+                            <path d="M12 .5C5.73.5.75 5.48.75 11.75c0
+                            4.97 3.22 9.19 7.69 10.67.56.1.77-.24.77-.54
+                            0-.27-.01-1.16-.02-2.1-3.13.68-3.79-1.33-3.79-1.33
+                            -.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69
+                            1.13.08 1.72 1.16 1.72 1.16 1 .1.78 1.94
+                            1.78 1.4.17-.71.44-1.2.8-1.48-2.5-.28-5.13-1.25
+                            -5.13-5.55 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43
+                            .11-2.98 0 0 .95-.3 3.1 1.15a10.75 10.75 0 0 1
+                            5.64 0c2.15-1.46 3.1-1.15 3.1-1.15.61 1.55.23
+                            2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.31
+                            -2.63 5.26-5.14 5.54.45.39.85 1.13.85 2.28
+                            0 1.65-.02 2.98-.02 3.39 0 .3.2.65.78.54
+                            4.47-1.49 7.69-5.7 7.69-10.67C23.25 5.48
+                            18.27.5 12 .5z"/>
+                        </svg>
+
+                    </div>
+
+                    <div>
+                        <p class="text-sm font-semibold text-white">
+                            caxt on GitHub
+                        </p>
+
+                        <p class="text-xs text-zinc-500 mt-1">
+                            github.com/tappy1231/caxt
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="flex items-center gap-2 text-sm
+                    text-zinc-400">
+
+                    <span>View repository</span>
+
+                    <span class="text-lg">→</span>
+
+                </div>
+
+            </a>
+
+        </section>
+
+
+        <!-- FEATURES -->
+        <section id="features" class="mt-16">
+
+            <div class="mb-7">
+
+                <p class="text-xs uppercase tracking-[.2em]
+                    text-zinc-600 font-semibold">
+                    Capabilities
+                </p>
+
+                <h2 class="text-3xl font-bold text-white mt-2">
+                    Everything you need to paint.
+                </h2>
+
+                <p class="text-zinc-500 mt-2">
+                    A simple desktop workflow without unnecessary complexity.
+                </p>
+
+            </div>
+
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+
+                <div class="feature glass rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-white/[.06]
+                        flex items-center justify-center mb-5">
+                        🎨
+                    </div>
+
+                    <h3 class="font-semibold text-white">
+                        Layers
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-2 leading-relaxed">
+                        Add, remove, reorder, hide, and change the opacity
+                        of individual layers.
+                    </p>
+                </div>
+
+
+                <div class="feature glass rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-white/[.06]
+                        flex items-center justify-center mb-5">
+                        ✏️
+                    </div>
+
+                    <h3 class="font-semibold text-white">
+                        Powerful tools
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-2 leading-relaxed">
+                        Pencil, brush, spray, eraser, shapes, bucket,
+                        eyedropper, and text tools.
+                    </p>
+                </div>
+
+
+                <div class="feature glass rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-white/[.06]
+                        flex items-center justify-center mb-5">
+                        🌈
+                    </div>
+
+                    <h3 class="font-semibold text-white">
+                        Color control
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-2 leading-relaxed">
+                        16 preset swatches plus the system color picker.
+                    </p>
+                </div>
+
+
+                <div class="feature glass rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-white/[.06]
+                        flex items-center justify-center mb-5">
+                        ↶
+                    </div>
+
+                    <h3 class="font-semibold text-white">
+                        Undo & redo
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-2 leading-relaxed">
+                        Ctrl+Z and Ctrl+Y with a history limit of 40 actions.
+                    </p>
+                </div>
+
+
+                <div class="feature glass rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-white/[.06]
+                        flex items-center justify-center mb-5">
+                        📁
+                    </div>
+
+                    <h3 class="font-semibold text-white">
+                        File support
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-2 leading-relaxed">
+                        Open and save PNG, JPG, BMP, and GIF image files.
+                    </p>
+                </div>
+
+
+                <div class="feature glass rounded-2xl p-6">
+                    <div class="w-10 h-10 rounded-xl bg-white/[.06]
+                        flex items-center justify-center mb-5">
+                        🔍
+                    </div>
+
+                    <h3 class="font-semibold text-white">
+                        Flexible canvas
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-2 leading-relaxed">
+                        Resize your canvas and zoom between 25% and 600%.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- SETUP -->
+        <section id="setup" class="mt-16">
+
+            <div class="mb-7">
+
+                <p class="text-xs uppercase tracking-[.2em]
+                    text-zinc-600 font-semibold">
+                    Installation
+                </p>
+
+                <h2 class="text-3xl font-bold text-white mt-2">
+                    Get started.
+                </h2>
+
+            </div>
+
+
+            <div class="grid lg:grid-cols-2 gap-4">
+
+                <div class="glass rounded-2xl p-6">
+
+                    <div class="flex items-center justify-between mb-5">
+
+                        <h3 class="font-semibold text-white">
+                            Run caxt
+                        </h3>
+
+                        <span class="text-xs text-zinc-600 font-mono">
+                            terminal
+                        </span>
+
+                    </div>
+
+                    <div class="code rounded-xl p-5 font-mono text-sm">
+
+                        <div class="text-zinc-600">
+                            # Install dependencies
+                        </div>
+
+                        <div class="text-zinc-300 mt-2">
+                            pip install -r requirements.txt
+                        </div>
+
+                        <div class="text-zinc-600 mt-5">
+                            # Launch
+                        </div>
+
+                        <div class="text-zinc-300 mt-2">
+                            python main.py
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="glass rounded-2xl p-6">
+
+                    <h3 class="font-semibold text-white mb-5">
+                        Project structure
+                    </h3>
+
+                    <div class="code rounded-xl p-5 font-mono
+                        text-xs sm:text-sm text-zinc-400
+                        leading-7 overflow-x-auto whitespace-pre">caxt/
+├── main.py
+├── app.py
+├── canvas.py
+├── tools.py
+├── toolbar.py
+├── layers_panel.py
+├── history.py
+├── requirements.txt
+└── logo.png</div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- NOTE -->
+        <section class="mt-4 glass rounded-2xl p-5">
+
+            <div class="flex gap-4">
+
+                <div class="text-zinc-500 text-lg">
+                    ⓘ
+                </div>
+
+                <div>
+
+                    <h3 class="text-sm font-semibold text-white">
+                        Implementation note
+                    </h3>
+
+                    <p class="text-sm text-zinc-500 mt-1 leading-relaxed">
+                        Undo and redo use snapshots of the complete layer
+                        stack. The history is limited to 40 actions to keep
+                        memory usage bounded. The text tool opens a dialog and
+                        stamps the entered text onto the active layer.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SOURCE FILES -->
+        <section id="files" class="mt-16">
+
+            <div class="flex flex-col sm:flex-row
+                sm:items-end sm:justify-between gap-3 mb-7">
+
+                <div>
+
+                    <p class="text-xs uppercase tracking-[.2em]
+                        text-zinc-600 font-semibold">
+                        Source code
+                    </p>
+
+                    <h2 class="text-3xl font-bold text-white mt-2">
+                        Project files
+                    </h2>
+
+                    <p class="text-zinc-500 mt-2">
+                        Download individual files or browse the complete
+                        project on GitHub.
+                    </p>
+
+                </div>
+
+                <span
+                    id="file-count"
+                    class="text-xs text-zinc-600 font-mono">
+                </span>
+
+            </div>
+
+
+            <div id="file-list" class="grid gap-2"></div>
+
+        </section>
+
+
+        <!-- GITHUB CTA -->
+        <section class="mt-16">
+
+            <div class="glass rounded-3xl p-8 sm:p-10 text-center">
+
+                <div class="mx-auto w-14 h-14 rounded-2xl
+                    bg-white text-black flex items-center
+                    justify-center">
+
+                    <svg
+                        class="w-8 h-8"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path d="M12 .5C5.73.5.75 5.48.75 11.75c0
+                        4.97 3.22 9.19 7.69 10.67.56.1.77-.24.77-.54
+                        0-.27-.01-1.16-.02-2.1-3.13.68-3.79-1.33-3.79-1.33
+                        -.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69
+                        1.13.08 1.72 1.16 1.72 1.16 1 .1.78 1.94
+                        1.78 1.4.17-.71.44-1.2.8-1.48-2.5-.28-5.13-1.25
+                        -5.13-5.55 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43
+                        .11-2.98 0 0 .95-.3 3.1 1.15a10.75 10.75 0 0 1
+                        5.64 0c2.15-1.46 3.1-1.15 3.1-1.15.61 1.55.23
+                        2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.31
+                        -2.63 5.26-5.14 5.54.45.39.85 1.13.85 2.28
+                        0 1.65-.02 2.98-.02 3.39 0 .3.2.65.78.54
+                        4.47-1.49 7.69-5.7 7.69-10.67C23.25 5.48
+                        18.27.5 12 .5z"/>
+                    </svg>
+
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl
+                    font-bold text-white mt-5">
+                    caxt is open source.
+                </h2>
+
+                <p class="text-zinc-500 max-w-xl mx-auto mt-3">
+                    Explore the source code, report issues, contribute
+                    improvements, or fork the project on GitHub.
+                </p>
+
+                <a
+                    href="https://github.com/tappy1231/caxt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2
+                        mt-7 bg-white text-black
+                        font-semibold px-6 py-3 rounded-xl
+                        hover:bg-zinc-200 transition"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                    >
+                        <path d="M12 .5C5.73.5.75 5.48.75 11.75c0
+                        4.97 3.22 9.19 7.69 10.67.56.1.77-.24.77-.54
+                        0-.27-.01-1.16-.02-2.1-3.13.68-3.79-1.33-3.79-1.33
+                        -.51-1.3-1.25-1.65-1.25-1.65-1.02-.7.08-.69.08-.69
+                        1.13.08 1.72 1.16 1.72 1.16 1 .1.78 1.94
+                        1.78 1.4.17-.71.44-1.2.8-1.48-2.5-.28-5.13-1.25
+                        -5.13-5.55 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43
+                        .11-2.98 0 0 .95-.3 3.1 1.15a10.75 10.75 0 0 1
+                        5.64 0c2.15-1.46 3.1-1.15 3.1-1.15.61 1.55.23
+                        2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.31
+                        -2.63 5.26-5.14 5.54.45.39.85 1.13.85 2.28
+                        0 1.65-.02 2.98-.02 3.39 0 .3.2.65.78.54
+                        4.47-1.49 7.69-5.7 7.69-10.67C23.25 5.48
+                        18.27.5 12 .5z"/>
+                    </svg>
+
+                    View tappy1231/caxt
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="mt-20 pt-7 border-t border-zinc-900
+            flex flex-col sm:flex-row items-center
+            justify-between gap-4 text-xs text-zinc-600">
+
+            <div class="flex items-center gap-2">
+
+                <img
+                    src="https://i.ibb.co/sdXhjzf3/logo.png"
+                    class="w-5 h-5 rounded"
+                    alt=""
+                >
+
+                <span>
+                    caxt
+                </span>
+
+                <span>•</span>
+
+                <span>
+                    Open Source
+                </span>
+
+            </div>
+
+            <a
+                href="https://github.com/tappy1231/caxt"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover:text-white transition"
+            >
+                github.com/tappy1231/caxt
+            </a>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        const files = [
+            {
+                name: "app",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/jsjwtkxzx5dshhw/app.py/file"
+            },
+            {
+                name: "clipboard",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/lkg6swmo1b3tq98/clipboard.py/file"
+            },
+            {
+                name: "constants",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/vfb2kk4ss2jecow/constants.py/file"
+            },
+            {
+                name: "filters",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/rrj395uok79wv68/filters.py/file"
+            },
+            {
+                name: "history",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/7dp9qmplb4ty3qs/history.py/file"
+            },
+            {
+                name: "layers_panel",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/d96f6wjm9hpsr78/layers_panel.py/file"
+            },
+            {
+                name: "main",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/i37qbpwi10d9trk/main.py/file"
+            },
+            {
+                name: "toolbar",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/196qynhmkm0f0t3/toolbar.py/file"
+            },
+            {
+                name: "tools",
+                ext: "PY",
+                url: "https://www.mediafire.com/file/5y65okyyeu08c45/tools.py/file"
+            },
+            {
+                name: "requirements",
+                ext: "TXT",
+                url: "https://www.mediafire.com/file/08cwyus9ptckprq/requirements.txt/file"
+            }
+        ];
+
+        const container = document.getElementById("file-list");
+        const count = document.getElementById("file-count");
+
+        count.textContent = `${files.length} files`;
+
+        const fileIcon = `
+            <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+                />
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M14 3v6h5"
+                />
+            </svg>
+        `;
+
+        files.forEach((file) => {
+
+            const el = document.createElement("div");
+
+            el.className =
+                "file-card glass rounded-2xl p-4 " +
+                "flex items-center justify-between gap-4";
+
+            const displayName = file.name.replace("_", " ");
+
+            el.innerHTML = `
+                <div class="flex items-center gap-4 min-w-0">
+
+                    <div class="
+                        w-11 h-11 rounded-xl
+                        bg-white/[.04]
+                        border border-white/[.05]
+                        flex items-center justify-center
+                        text-zinc-500 flex-shrink-0
+                    ">
+                        ${fileIcon}
+                    </div>
+
+                    <div class="min-w-0">
+
+                        <h3 class="
+                            text-sm font-semibold
+                            text-white truncate capitalize
+                        ">
+                            ${displayName}
+                        </h3>
+
+                        <p class="
+                            text-[10px] text-zinc-600
+                            font-mono uppercase
+                            tracking-widest mt-1
+                        ">
+                            ${file.ext} source file
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <a
+                    href="${file.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="
+                        file-download flex-shrink-0
+                        px-4 py-2 rounded-lg
+                        border border-zinc-800
+                        text-xs font-medium
+                        text-zinc-300
+                    "
+                >
+                    Download
+                </a>
+            `;
+
+            container.appendChild(el);
+        });
+
+    </script>
+
+</body>
+</html>
